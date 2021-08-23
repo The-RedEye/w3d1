@@ -1,3 +1,5 @@
+require "byebug"
+
 class Array
   # ENUMERABLES: BLOCKS AND PROCS
   def my_each(&prc)
@@ -50,7 +52,60 @@ class Array
   end
 
   # ARRAY
+  def my_flatten  #how to pass without deforming array and calling argument
+    result_arr = []
 
+    # if self == []
+    #   return
+    # end
+
+    (0...self.length).each do|i|
+      # debugger
+      if self[i].is_a?(Array) # if a number
+        # debugger
+        result_arr.concat(self[i].my_flatten)
+      else
+        # debugger
+        result_arr << self[i]
+      end
+    end
+
+    result_arr
+
+  
+  end
+#---------------
+  def my_zip (*args)
+    result_arr = []
+    
+    combined_arr = [self] + args
+
+    # max_arr=combined_arr.inject do |accum, sub_arr|
+    #   if accum.length<=sub_arr.length
+    #       sub_arr
+    #   else
+    #       accum
+    #   end
+    # end
+
+    # # result_arr = Array.new(max_arr.length, 0)
+
+    (0...combined_arr.length).each do |i|
+      col_arr = [] 
+          # debugger
+        # result_arr = Array.new(max_arr.length, 0)
+      
+      combined_arr.each do |row|
+        col_arr << row[i]
+      end
+
+      result_arr << col_arr
+      # debugger
+    end
+
+    return result_arr
+
+  end
 
 
 end
